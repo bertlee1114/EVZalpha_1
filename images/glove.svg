@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Glove Base -->
+  <path d="M30 60 Q30 40 40 30 Q50 25 60 30 Q70 40 70 60 L70 80 Q70 85 65 85 L35 85 Q30 85 30 80 Z" fill="#FFD700" stroke="#DAA520" stroke-width="2" />
+  
+  <!-- Fingers -->
+  <path d="M40 30 Q40 20 45 15 Q50 10 55 15 Q60 20 60 30" fill="#FFD700" stroke="#DAA520" stroke-width="2" />
+  <path d="M35 35 Q30 25 35 20 Q40 15 45 20 Q50 25 45 35" fill="#FFD700" stroke="#DAA520" stroke-width="2" />
+  <path d="M65 35 Q70 25 65 20 Q60 15 55 20 Q50 25 55 35" fill="#FFD700" stroke="#DAA520" stroke-width="2" />
+  
+  <!-- Glove Details -->
+  <path d="M30 70 L70 70" stroke="#DAA520" stroke-width="1" />
+  <path d="M35 60 L65 60" stroke="#DAA520" stroke-width="1" />
+  <path d="M40 50 L60 50" stroke="#DAA520" stroke-width="1" />
+  <path d="M45 40 L55 40" stroke="#DAA520" stroke-width="1" />
+  
+  <!-- Wrist Band -->
+  <rect x="30" y="80" width="40" height="5" fill="#B8860B" rx="2" ry="2" />
+</svg>

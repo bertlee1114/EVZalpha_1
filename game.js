@@ -81,6 +81,9 @@ class Game {
         this.createCat('white', 600, 400);
         this.createCat('calico', 300, 500);
         this.createCat('siamese', 500, 100);
+        
+        // Method to create cats
+        this.createCatContainer = document.getElementById('plants-container'); // Using plants container for cats too
         this.selectedPlant = null;
         
         // Plant costs
@@ -342,7 +345,245 @@ class Game {
             // Deduct sun cost
             this.sun -= sunCost;
             
-            // Create DOM element for the plant
+class Almanac {
+    constructor() {
+        this.entries = {
+            'basic-cat': {
+                name: 'Basic Cat',
+                description: 'A standard fighter cat',
+                stats: { health: 100, damage: 20 }
+            },
+            'tank-cat': {
+                name: 'Tank Cat',
+                description: 'High HP, low damage cat',
+                stats: { health: 200, damage: 10 }
+            },
+            'zombie': {
+                name: 'Basic Zombie',
+                description: 'Standard enemy',
+                stats: { health: 100, speed: 1 }
+            }
+        };
+    }
+
+    showEntry(id) {
+        return this.entries[id];
+    }
+}class Shop {
+    constructor() {
+        this.items = [
+            { name: 'Basic Cat', cost: 100, type: 'basic' },
+            { name: 'Tank Cat', cost: 200, type: 'tank' },
+            // Add more shop items
+        ];
+    }
+
+    purchase(itemType, playerMoney) {
+        const item = this.items.find(i => i.type === itemType);
+        if (item && playerMoney >= item.cost) {
+            return { success: true, cost: item.cost };
+        }
+        return { success: false };
+    }
+}
+
+// Add to your game initialization
+const shop = new Shop();class Zombie {
+    // ... existing code ...
+    
+    die() {
+        // Add fade out animation
+        let opacity = 1;
+        const fadeOut = setInterval(() => {
+            opacity -= 0.1;
+            if (opacity <= 0) {
+                clearInterval(fadeOut);
+                this.remove = true;
+            }
+            this.opacity = opacity;
+        }, 50);
+    }
+
+    draw(ctx) {
+        ctx.globalAlpha = this.opacity || 1;
+        ctx.drawImage(zombieImage, this.x, this.y, this.width, this.height);
+        ctx.globalAlpha = 1;
+    }
+}// Update image loading paths to be relative
+const zombieImage = new Image();
+zombieImage.src = './images/zombie.svg';  // Using SVG instead of PNG
+
+// Create cat method
+Game.prototype.createCat = function(type, x, y) {
+    const cat = {
+        type: type,
+        x: x,
+        y: y,
+        health: 100,
+        attackDamage: this.catTypes[type].attackDamage,
+        attackRange: this.catTypes[type].attackRange,
+        speed: this.catTypes[type].speed,
+        attackCooldown: this.catTypes[type].attackCooldown,
+        lastAttack: 0,
+        specialAbility: this.catTypes[type].specialAbility,
+        specialCooldown: this.catTypes[type].specialCooldown,
+        lastSpecial: 0
+    };
+    
+    this.cats.push(cat);
+    
+    // Create DOM element for the cat
+    const catsContainer = document.getElementById('plants-container'); // Using plants container for cats too
+    if (catsContainer) {
+        const catElement = document.createElement('div');
+        catElement.className = `cat ${type}-cat`;
+        catElement.style.left = `${x}px`;
+        catElement.style.top = `${y}px`;
+        catElement.style.position = 'absolute';
+        catElement.style.width = '60px';
+        catElement.style.height = '60px';
+        catElement.style.backgroundSize = 'contain';
+        catElement.style.backgroundRepeat = 'no-repeat';
+        catElement.style.backgroundPosition = 'center';
+        
+        // Set the background image based on cat type
+        const catImagePath = catImages[type] || './images/cat.svg';
+        catElement.style.backgroundImage = `url(${catImagePath})`;
+        
+        catElement.setAttribute('data-cat-id', this.cats.length - 1);
+        catsContainer.appendChild(catElement);
+        
+        console.log(`Created ${type} cat at (${x}, ${y})`);
+    } else {
+        console.error('Cats container not found');
+    }
+    
+    return cat;
+};
+
+// Update cats method
+Game.prototype.updateCats = function() {
+    this.cats.forEach((cat, index) => {
+        // Update cat position in DOM
+        const catElement = document.querySelector(`[data-cat-id="${index}"]`);
+        if (catElement) {
+            catElement.style.left = `${cat.x}px`;
+            catElement.style.top = `${cat.y}px`;
+        }
+        
+        // Cat AI and behavior can be implemented here
+        // For now, just basic movement
+        
+        // Find nearest zombie
+        const nearestZombie = this.findNearestZombie(cat);
+        
+        if (nearestZombie) {
+            // Move towards zombie
+            const dx = nearestZombie.x - cat.x;
+            const dy = nearestZombie.y - cat.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance > cat.attackRange) {
+                // Move towards zombie
+                cat.x += (dx / distance) * cat.speed;
+                cat.y += (dy / distance) * cat.speed;
+            } else {
+                // Attack zombie if in range and cooldown is ready
+                if (Date.now() - cat.lastAttack > cat.attackCooldown) {
+                    nearestZombie.health -= cat.attackDamage;
+                    cat.lastAttack = Date.now();
+                    
+                    // Special ability
+                    if (Date.now() - cat.lastSpecial > cat.specialCooldown) {
+                        this.activateCatSpecial(cat, nearestZombie);
+                        cat.lastSpecial = Date.now();
+                    }
+                }
+            }
+        }
+    });
+};
+
+// Find nearest zombie helper method
+Game.prototype.findNearestZombie = function(cat) {
+    if (this.zombies.length === 0) return null;
+    
+    let nearestZombie = null;
+    let minDistance = Infinity;
+    
+    this.zombies.forEach(zombie => {
+        const dx = zombie.x - cat.x;
+        const dy = zombie.y - cat.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < minDistance) {
+            minDistance = distance;
+            nearestZombie = zombie;
+        }
+    });
+    
+    return nearestZombie;
+};
+
+// Activate cat special ability
+Game.prototype.activateCatSpecial = function(cat, target) {
+    switch (cat.specialAbility) {
+        case 'sunBoost':
+            // Orange cat: Generate extra sun
+            this.sun += 15;
+            this.totalSun += 15;
+            break;
+        case 'criticalHit':
+            // Black cat: Chance for double damage
+            if (Math.random() < 0.5) {
+                target.health -= cat.attackDamage; // Additional damage
+            }
+            break;
+        case 'speedBurst':
+            // White cat: Temporary speed boost
+            cat.speed *= 2;
+            setTimeout(() => {
+                cat.speed /= 2; // Return to normal speed
+            }, 3000);
+            break;
+        case 'healPlants':
+            // Calico cat: Heal nearby plants
+            this.plants.forEach(plant => {
+                const dx = plant.x - cat.x;
+                const dy = plant.y - cat.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 150) { // Healing range
+                    plant.health = Math.min(100, plant.health + 20);
+                }
+            });
+            break;
+        case 'freezeZombies':
+            // Siamese cat: Temporarily freeze zombies
+            this.zombies.forEach(zombie => {
+                const dx = zombie.x - cat.x;
+                const dy = zombie.y - cat.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 200) { // Freeze range
+                    zombie.speed = 0;
+                    setTimeout(() => {
+                        zombie.speed = 1; // Return to normal speed
+                    }, 2000);
+                }
+            });
+            break;
+    }
+};
+
+
+const catImages = {
+    orange: './images/cat.svg',
+    black: './images/black_cat.svg',
+    white: './images/white_cat.svg',
+    calico: './images/cat.svg',  // Using default cat SVG for calico
+    siamese: './images/cat.svg'  // Using default cat SVG for siamese
+};            // Create DOM element for the plant
             const plantsContainer = document.getElementById('plants-container');
             if (plantsContainer) {
                 const plantElement = document.createElement('div');
@@ -355,6 +596,7 @@ class Game {
                 plantElement.style.backgroundSize = 'contain';
                 plantElement.style.backgroundRepeat = 'no-repeat';
                 plantElement.style.backgroundPosition = 'center';
+                plantElement.style.backgroundImage = `url(./images/${plant.type}.svg)`;
                 plantElement.setAttribute('data-plant-id', this.plants.length - 1);
                 plantsContainer.appendChild(plantElement);
                 
@@ -612,9 +854,9 @@ class Game {
                         }
                     }
                     
-                    // Remove the explosion effect after animation
+                    // Remove the explosion effects after animation
                     setTimeout(() => {
-                        explosionElement.remove();
+                        document.querySelectorAll('.explosion').forEach(el => el.remove());
                     }, 1000);
                     
                     // Remove the plant after explosion (one-time use)
@@ -1182,40 +1424,188 @@ class Game {
         });
     }
 }
+// Initialize game and tools when window loads
 window.onload = () => {
-    window.game = new Game();
+    const game = new Game();
+    window.game = game;
+    
+    // Initialize tool buttons
+    const shovelBtn = document.getElementById('shovel-btn');
+    const gloveBtn = document.getElementById('glove-btn');
+    
+    let activeTool = null;
+    
+    // Shovel button click handler
+    shovelBtn.addEventListener('click', () => {
+        if (activeTool === 'shovel') {
+            // Deactivate tool if already active
+            activeTool = null;
+            shovelBtn.classList.remove('active');
+        } else {
+            // Activate shovel, deactivate other tools
+            activeTool = 'shovel';
+            shovelBtn.classList.add('active');
+            gloveBtn.classList.remove('active');
+            console.log('Shovel tool activated');
+        }
+    });
+    
+    // Glove button click handler
+    gloveBtn.addEventListener('click', () => {
+        if (activeTool === 'glove') {
+            // Deactivate tool if already active
+            activeTool = null;
+            gloveBtn.classList.remove('active');
+        } else {
+            // Activate glove, deactivate other tools
+            activeTool = 'glove';
+            gloveBtn.classList.add('active');
+            shovelBtn.classList.remove('active');
+            console.log('Glove tool activated');
+        }
+    });
+    
+    // Add tool functionality to canvas click event
+    game.canvas.addEventListener('click', (e) => {
+        if (!activeTool) return;
+        
+        const rect = game.canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Convert click coordinates to grid position
+        const gridX = Math.floor(x / game.grid.cellSize);
+        const gridY = Math.floor(y / game.grid.cellSize);
+        
+        if (activeTool === 'shovel') {
+            // Find plant at clicked position
+            const plant = game.plants.find(p => p.gridX === gridX && p.gridY === gridY);
+            if (plant) {
+                const plantIndex = game.plants.indexOf(plant);
+                game.plants.splice(plantIndex, 1);
+                game.sun += game.plantCosts[plant.type] || 1; // Convert plant back to sun
+                game.totalSun += game.plantCosts[plant.type] || 1;
+                console.log(`Removed ${plant.type} and recovered ${game.plantCosts[plant.type] || 1} sun`);
+                
+                // Update sun display
+                document.getElementById('sun-amount').textContent = game.sun;
+            }
+        } else if (activeTool === 'glove') {
+            // Check for plants first
+            const plant = game.plants.find(p => p.gridX === gridX && p.gridY === gridY);
+            if (plant) {
+                const plantIndex = game.plants.indexOf(plant);
+                game.plants.splice(plantIndex, 1);
+                console.log(`Removed plant: ${plant.type}`);
+                return;
+            }
+            
+            // Then check for zombies
+            for (let i = 0; i < game.zombies.length; i++) {
+                const zombie = game.zombies[i];
+                const zombieGridX = Math.floor(zombie.x / game.grid.cellSize);
+                const zombieGridY = zombie.gridY || Math.floor(zombie.y / game.grid.cellSize);
+                
+                if (zombieGridX === gridX && zombieGridY === gridY) {
+                    game.zombies.splice(i, 1);
+                    console.log('Removed zombie');
+                    break;
+                }
+            }
+        }
+    });
 };
 
-// Add shovel and glove tools
-const game = window.game;
-game.tools = {
-    shovel: {
-        name: 'Shovel',
-        action: (plant) => {
-            const plantIndex = this.plants.indexOf(plant);
-            if (plantIndex > -1) {
-                this.plants.splice(plantIndex, 1);
-                this.sun += this.plantCosts[plant.type]; // Convert plant back to sun
-                console.log(`Converted ${plant.type} back to sun. Current sun: ${this.sun}`);
-            }
-        }
-    },
-    glove: {
-        name: 'Glove',
-        action: (entity) => {
-            if (entity.type === 'plant') {
-                const plantIndex = this.plants.indexOf(entity);
-                if (plantIndex > -1) {
-                    this.plants.splice(plantIndex, 1);
-                    console.log(`Removed plant: ${entity.type}`);
-                }
-            } else if (entity.type === 'zombie') {
-                const zombieIndex = this.zombies.indexOf(entity);
-                if (zombieIndex > -1) {
-                    this.zombies.splice(zombieIndex, 1);
-                    console.log(`Removed zombie.`);
-                }
-            }
-        }
+// Zombie class with proper rendering
+class Zombie {
+    constructor(x, y, gridY) {
+        this.x = x;
+        this.y = y;
+        this.gridY = gridY;
+        this.width = 60;
+        this.height = 80;
+        this.health = 100;
+        this.speed = 0.5;
+        this.knockback = 0;
+        this.hypnotized = false;
+        this.ally = false;
+        this.frozen = false;
+        this.opacity = 1;
     }
+    
+    die() {
+        // Add fade out animation
+        let opacity = 1;
+        const fadeOut = setInterval(() => {
+            opacity -= 0.1;
+            if (opacity <= 0) {
+                clearInterval(fadeOut);
+                this.remove = true;
+            }
+            this.opacity = opacity;
+        }, 50);
+    }
+
+    draw(ctx) {
+        ctx.globalAlpha = this.opacity || 1;
+        if (zombieImage.complete) {
+            ctx.drawImage(zombieImage, this.x, this.y, this.width, this.height);
+        } else {
+            // Fallback rendering if image isn't loaded
+            ctx.fillStyle = this.hypnotized ? '#8A2BE2' : (this.frozen ? '#ADD8E6' : '#8BC34A');
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+            
+            // Draw health
+            ctx.fillStyle = this.health > 30 ? '#00ff00' : '#ff0000';
+            ctx.font = '12px Arial';
+            ctx.fillText(Math.ceil(this.health), this.x + (this.width/2), this.y - 5);
+        }
+        ctx.globalAlpha = 1;
+    }
+}
+
+// Update spawn zombies method to use the Zombie class
+Game.prototype.spawnZombiesInterval = function() {
+    setInterval(() => {
+        // Randomly select a lane to spawn zombie
+        const randomLane = Math.floor(Math.random() * this.grid.rows);
+        const newZombie = new Zombie(
+            this.canvas.width, 
+            randomLane * this.grid.cellSize, 
+            randomLane
+        );
+        this.zombies.push(newZombie);
+        
+        console.log(`Spawned zombie in lane ${randomLane}`);
+    }, 5000); // Spawn every 5 seconds
+};
+
+// Update the zombie drawing in the render method
+const originalRender = Game.prototype.render;
+Game.prototype.render = function() {
+    // Call the original render method
+    originalRender.call(this);
+    
+    // Override zombie rendering
+    this.zombies.forEach(zombie => {
+        if (zombie instanceof Zombie) {
+            zombie.draw(this.ctx);
+        } else {
+            // Legacy zombie objects
+            this.ctx.globalAlpha = zombie.opacity || 1;
+            if (zombieImage.complete) {
+                this.ctx.drawImage(zombieImage, zombie.x, zombie.y, 60, 80);
+            } else {
+                // Fallback rendering
+                this.ctx.fillStyle = zombie.hypnotized ? '#8A2BE2' : (zombie.frozen ? '#ADD8E6' : '#8BC34A');
+                this.ctx.fillRect(zombie.x, zombie.y, 60, 80);
+                
+                // Draw health
+                this.ctx.fillStyle = zombie.health > 30 ? '#00ff00' : '#ff0000';
+                this.ctx.font = '12px Arial';
+                this.ctx.fillText(Math.ceil(zombie.health), zombie.x + 30, zombie.y - 5);
+            }
+            this.ctx.globalAlpha = 1;
+        }
+    });
 };

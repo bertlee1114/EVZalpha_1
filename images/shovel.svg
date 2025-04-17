@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Handle -->
+  <rect x="45" y="30" width="10" height="60" fill="#8B4513" rx="2" ry="2" />
+  
+  <!-- Shovel Head -->
+  <path d="M30 30 L70 30 L60 10 L40 10 Z" fill="#A9A9A9" stroke="#696969" stroke-width="2" />
+  
+  <!-- Shovel Blade -->
+  <path d="M35 30 L65 30 L60 15 L40 15 Z" fill="#C0C0C0" stroke="#696969" stroke-width="1" />
+  
+  <!-- Handle Detail -->
+  <rect x="45" y="35" width="10" height="5" fill="#6B3E26" rx="1" ry="1" />
+  <rect x="45" y="45" width="10" height="5" fill="#6B3E26" rx="1" ry="1" />
+  <rect x="45" y="55" width="10" height="5" fill="#6B3E26" rx="1" ry="1" />
+  <rect x="45" y="65" width="10" height="5" fill="#6B3E26" rx="1" ry="1" />
+  <rect x="45" y="75" width="10" height="5" fill="#6B3E26" rx="1" ry="1" />
+</svg>
