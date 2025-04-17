@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" width="100" height="120">
+  <!-- Chomper Plant -->
+  <g>
+    <!-- Stem and Leaves -->
+    <rect x="45" y="80" width="10" height="30" fill="#2E7D32" />
+    <path d="M45 90 C25 85, 25 95, 45 90" fill="#2E7D32" />
+    <path d="M55 100 C75 95, 75 105, 55 100" fill="#2E7D32" />
+    
+    <!-- Head/Body -->
+    <ellipse cx="50" cy="50" rx="25" ry="30" fill="#8E24AA" />
+    
+    <!-- Mouth (open) -->
+    <path d="M30 50 C40 70, 60 70, 70 50" fill="#4A148C" />
+    
+    <!-- Teeth (upper) -->
+    <path d="M35 50 L38 58 L41 50 L44 58 L47 50 L50 58 L53 50 L56 58 L59 50 L62 58 L65 50" fill="#F5F5F5" />
+    
+    <!-- Teeth (lower) -->
+    <path d="M35 65 L38 58 L41 65 L44 58 L47 65 L50 58 L53 65 L56 58 L59 65 L62 58 L65 65" fill="#F5F5F5" />
+    
+    <!-- Eyes -->
+    <circle cx="40" cy="35" r="5" fill="#FFF" />
+    <circle cx="60" cy="35" r="5" fill="#FFF" />
+    <circle cx="40" cy="35" r="3" fill="#000" />
+    <circle cx="60" cy="35" r="3" fill="#000" />
+    
+    <!-- Spots/Patterns -->
+    <circle cx="30" cy="45" r="3" fill="#BA68C8" />
+    <circle cx="70" cy="45" r="3" fill="#BA68C8" />
+    <circle cx="35" cy="60" r="2" fill="#BA68C8" />
+    <circle cx="65" cy="60" r="2" fill="#BA68C8" />
+    <circle cx="50" cy="70" r="2" fill="#BA68C8" />
+  </g>
+</svg>

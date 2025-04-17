@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Jalapeno Body -->
+  <path d="M50 10 C60 10, 75 30, 75 60 C75 80, 65 90, 50 90 C35 90, 25 80, 25 60 C25 30, 40 10, 50 10 Z" fill="#2D9F30" />
+  
+  <!-- Jalapeno Highlights -->
+  <path d="M50 15 C58 15, 70 30, 70 60 C70 75, 62 85, 50 85 C38 85, 30 75, 30 60 C30 30, 42 15, 50 15 Z" fill="#3CB043" />
+  
+  <!-- Jalapeno Stem -->
+  <path d="M50 10 C50 5, 55 5, 55 0 L60 0 C60 8, 50 8, 50 10 Z" fill="#2D9F30" />
+  
+  <!-- Jalapeno Face -->
+  <circle cx="40" cy="40" r="3" fill="black" />
+  <circle cx="60" cy="40" r="3" fill="black" />
+  <path d="M40 60 Q50 70 60 60" fill="none" stroke="black" stroke-width="2" />
+  
+  <!-- Fire Effect -->
+  <path d="M35 20 Q40 10 45 20 Q50 10 55 20 Q60 10 65 20" fill="none" stroke="#FF4500" stroke-width="3" />
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" width="100" height="120">
+  <!-- Wall Nut (Cracked) -->
+  <g>
+    <!-- Nut Body -->
+    <ellipse cx="50" cy="60" rx="30" ry="35" fill="#8D6E63" />
+    <ellipse cx="50" cy="60" rx="25" ry="30" fill="#A1887F" />
+    
+    <!-- Face -->
+    <ellipse cx="40" cy="50" rx="5" ry="7" fill="#5D4037" />
+    <ellipse cx="60" cy="50" rx="5" ry="7" fill="#5D4037" />
+    <ellipse cx="40" cy="50" rx="2" ry="3" fill="#3E2723" />
+    <ellipse cx="60" cy="50" rx="2" ry="3" fill="#3E2723" />
+    
+    <!-- Worried Mouth -->
+    <path d="M40 75 Q50 70 60 75" fill="none" stroke="#5D4037" stroke-width="2" />
+    
+    <!-- Eyebrows -->
+    <path d="M35 40 Q40 35 45 40" fill="none" stroke="#5D4037" stroke-width="2" />
+    <path d="M55 40 Q60 35 65 40" fill="none" stroke="#5D4037" stroke-width="2" />
+    
+    <!-- Texture Lines -->
+    <path d="M30 45 Q50 40 70 45" fill="none" stroke="#8D6E63" stroke-width="1" />
+    <path d="M30 65 Q50 70 70 65" fill="none" stroke="#8D6E63" stroke-width="1" />
+    <path d="M30 85 Q50 90 70 85" fill="none" stroke="#8D6E63" stroke-width="1" />
+    
+    <!-- Cracks -->
+    <path d="M30 40 L45 65" fill="none" stroke="#5D4037" stroke-width="2" />
+    <path d="M42 65 L50 80" fill="none" stroke="#5D4037" stroke-width="2" />
+    <path d="M70 45 L55 70" fill="none" stroke="#5D4037" stroke-width="2" />
+    <path d="M58 70 L50 85" fill="none" stroke="#5D4037" stroke-width="2" />
+  </g>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" width="100" height="120">
+  <!-- Fire Peashooter -->
+  <g>
+    <!-- Stem and Leaves -->
+    <rect x="45" y="80" width="10" height="30" fill="#2E7D32" />
+    <path d="M45 90 C25 85, 25 95, 45 90" fill="#2E7D32" />
+    <path d="M55 100 C75 95, 75 105, 55 100" fill="#2E7D32" />
+    
+    <!-- Head -->
+    <circle cx="50" cy="50" r="25" fill="#FF7043" stroke="#D84315" stroke-width="2" />
+    
+    <!-- Eyes -->
+    <circle cx="40" cy="45" r="5" fill="#000" />
+    <circle cx="60" cy="45" r="5" fill="#000" />
+    <circle cx="38" cy="43" r="2" fill="#fff" />
+    <circle cx="58" cy="43" r="2" fill="#fff" />
+    
+    <!-- Mouth/Shooter -->
+    <circle cx="75" cy="50" r="10" fill="#D84315" />
+    
+    <!-- Flame Effects -->
+    <path d="M30 35 Q25 25 30 20 Q35 25 30 35" fill="#FFEB3B" />
+    <path d="M70 35 Q75 25 70 20 Q65 25 70 35" fill="#FFEB3B" />
+    <path d="M50 25 Q50 15 45 10 Q55 15 50 25" fill="#FFEB3B" />
+    
+    <!-- Heat Wave Effect -->
+    <path d="M20 50 Q30 45 40 50 Q50 55 60 50 Q70 45 80 50" fill="none" stroke="#FFEB3B" stroke-width="2" opacity="0.6" />
+    <path d="M20 60 Q30 55 40 60 Q50 65 60 60 Q70 55 80 60" fill="none" stroke="#FFEB3B" stroke-width="2" opacity="0.4" />
+  </g>
+</svg>

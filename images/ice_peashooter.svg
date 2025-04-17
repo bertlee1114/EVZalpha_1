@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" width="100" height="120">
+  <!-- Ice Peashooter -->
+  <g>
+    <!-- Stem and Leaves -->
+    <rect x="45" y="80" width="10" height="30" fill="#2E7D32" />
+    <path d="M45 90 C25 85, 25 95, 45 90" fill="#2E7D32" />
+    <path d="M55 100 C75 95, 75 105, 55 100" fill="#2E7D32" />
+    
+    <!-- Head -->
+    <circle cx="50" cy="50" r="25" fill="#A5D6F7" stroke="#1565C0" stroke-width="2" />
+    
+    <!-- Eyes -->
+    <circle cx="40" cy="45" r="5" fill="#000" />
+    <circle cx="60" cy="45" r="5" fill="#000" />
+    <circle cx="38" cy="43" r="2" fill="#fff" />
+    <circle cx="58" cy="43" r="2" fill="#fff" />
+    
+    <!-- Mouth/Shooter -->
+    <circle cx="75" cy="50" r="10" fill="#1565C0" />
+    
+    <!-- Ice Crystals -->
+    <path d="M30 35 L25 25 L30 30 L20 20 L30 35" fill="#E1F5FE" />
+    <path d="M70 35 L75 25 L70 30 L80 20 L70 35" fill="#E1F5FE" />
+    <path d="M50 25 L50 15 L45 20 L55 20 L50 25" fill="#E1F5FE" />
+    
+    <!-- Frost Effect -->
+    <circle cx="50" cy="50" r="28" fill="none" stroke="#E1F5FE" stroke-width="1" stroke-dasharray="2,3" />
+  </g>
+</svg>
