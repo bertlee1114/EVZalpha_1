@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plants vs Zombies Clone</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Home Screen -->
+    <div id="home-screen" class="screen active">
+        <h1>Plants vs Zombies Clone</h1>
+        <div class="menu-buttons">
+            <button id="start-game-btn">Start Game</button>
+            <button id="shop-btn">Shop</button>
+        </div>
+    </div>
+
+    <!-- Shop Screen -->
+    <div id="shop-screen" class="screen">
+        <h1>Plant Shop</h1>
+        <div class="shop-items">
+            <div class="shop-item" data-plant="super_peashooter" data-cost="200">
+                <img src="images/super_peashooter.svg" alt="Super Peashooter">
+                <div class="shop-item-info">
+                    <h3>Super Peashooter</h3>
+                    <p>Shoots peas at 2x damage and speed</p>
+                    <p class="cost">Cost: 200 sun</p>
+                </div>
+                <button class="buy-btn" data-plant="super_peashooter">Buy</button>
+            </div>
+            <div class="shop-item" data-plant="hypno_king" data-cost="300">
+                <img src="images/hypno_king.svg" alt="Hypno King">
+                <div class="shop-item-info">
+                    <h3>Hypno King</h3>
+                    <p>Hypnotizes zombies and spawns zombie allies</p>
+                    <p class="cost">Cost: 300 sun</p>
+                </div>
+                <button class="buy-btn" data-plant="hypno_king">Buy</button>
+            </div>
+        </div>
+        <button id="back-to-home-btn">Back</button>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-container" class="screen">
+        <canvas id="gameCanvas"></canvas>
+        <div id="plants-container"></div>
+        <div id="plant-selector">
+            <div class="plant-card" data-plant="sunflower">
+                <img src="images/sunflower.svg" alt="Sunflower">
+                <span>Sunflower</span>
+            </div>
+            <div class="plant-card" data-plant="peashooter">
+                <img src="images/peashooter.svg" alt="Peashooter">
+                <span>Peashooter</span>
+            </div>
+            <div class="plant-card" data-plant="garlic-mine">
+                <img src="images/garlic_mine.svg" alt="Garlic Mine">
+                <span>Garlic Mine</span>
+            </div>
+            <div class="plant-card" data-plant="sweet_potato">
+                <img src="images/sweet_potato.svg" alt="Sweet Potato">
+                <span>Sweet Potato</span>
+            </div>
+            <div class="plant-card" data-plant="hypno_king">
+                <img src="images/hypno_king.svg" alt="Hypno King">
+                <span>Hypno King</span>
+            </div>
+            <div class="plant-card" data-plant="ice_peashooter">
+                <img src="images/ice_peashooter.svg" alt="Ice Peashooter">
+                <span>Ice Peashooter</span>
+            </div>
+            <div class="plant-card" data-plant="fire_peashooter">
+                <img src="images/fire_peashooter.svg" alt="Fire Peashooter">
+                <span>Fire Peashooter</span>
+            </div>
+            <div class="plant-card" data-plant="twin_sunflower">
+                <img src="images/twin_sunflower.svg" alt="Twin Sunflower">
+                <span>Twin Sunflower</span>
+            </div>
+            <div class="plant-card" data-plant="chomper">
+                <img src="images/chomper.svg" alt="Chomper">
+                <span>Chomper</span>
+            </div>
+            <div class="plant-card" data-plant="wall_nut">
+                <img src="images/wall_nut.svg" alt="Wall Nut">
+                <span>Wall Nut</span>
+            </div>
+            <div class="plant-card" data-plant="jalapeno">
+                <img src="images/jalapeno.svg" alt="Jalapeno">
+                <span>Jalapeno</span>
+            </div>
+        </div>
+        <div id="sun-counter">Sun: <span id="sun-amount">50</span></div>
+        <div id="wave-counter-container">Wave: <span id="wave-counter">0</span></div>
+        
+        <!-- Cat Selector -->
+        <div id="cat-selector">
+            <h3>Cats</h3>
+            <div class="cat-cards">
+                <div class="cat-card" data-cat="orange" title="Orange Cat: Generates extra sun when defeating zombies">Orange</div>
+                <div class="cat-card" data-cat="black" title="Black Cat: Chance to deal double damage to zombies">Black</div>
+                <div class="cat-card" data-cat="white" title="White Cat: Gets temporary speed boost">White</div>
+                <div class="cat-card" data-cat="calico" title="Calico Cat: Heals nearby plants">Calico</div>
+                <div class="cat-card" data-cat="siamese" title="Siamese Cat: Freezes nearby zombies">Siamese</div>
+            </div>
+            <button id="spawn-cat-btn">Spawn Cat</button>
+        </div>
+        
+        <!-- Add lose screen -->
+        <div id="lose-screen" style="display: none;">
+            <div class="lose-content">
+                <h1>Game Over!</h1>
+                <p>The zombies ate your brains!</p>
+                <button id="restart-button">Play Again</button>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
+<button id="shovel-btn">Shovel</button>
+<button id="glove-btn">Glove</button>
